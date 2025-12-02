@@ -1,6 +1,6 @@
 # 📚 BookBack: Reclaim the Commons
 
-BookBack is a minimalist, anti-consumerist Chrome extension that redirects your attention away from corporate book retailers and toward your local public libraries. When you visit a book page on Amazon, Indigo, Barnes & Noble, Goodreads, Bookshop, and several others, BookBack scans the page, detects the title and author, and adds a small floating widget that lets you check availability at your own libraries.
+BookBack is a minimalist Chrome extension that helps discrover copies of books at local public libraries. When you visit a book page on Amazon, Indigo, Barnes & Noble, Goodreads, Bookshop, and several others, BookBack scans the page, detects the title and author, and adds a small floating widget that lets you check availability at your own libraries.
 
 BookBack is part of the **UnCart Movement**, a project encouraging people to spend less, reclaim the digital commons, and strengthen public good infrastructure.
 
