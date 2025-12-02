@@ -1,0 +1,151 @@
+/* styles.css - BookBack Styles */
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
+
+:root {
+    --manila: #fcf6e5;
+    --ink: #2b2b2b;
+    --stamp-green: #2e7d32;
+    --stamp-red: #c62828;
+}
+
+#bookback-widget {
+    background-color: var(--manila);
+    border: 2px solid var(--ink);
+    color: var(--ink);
+    padding: 20px;
+    margin-bottom: 20px;
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    
+    /* Hard Shadow */
+    box-shadow: 6px 6px 0px var(--ink); 
+    
+    z-index: 2147483647;
+    position: relative;
+    min-width: 30px;
+    
+    /* Ensure default text styles don't inherit from Indigo */
+    text-align: left;
+    line-height: 1.5;
+    box-sizing: border-box;
+    
+    animation: slideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Header Area */
+.bb-header { 
+    border-bottom: 2px solid var(--ink); 
+    padding-bottom: 10px; 
+    margin-bottom: 12px; 
+}
+
+.bb-logo { 
+    font-weight: 700; 
+    font-size: 11px; 
+    letter-spacing: 2px; 
+    color: #555; 
+    text-transform: uppercase;
+}
+
+.bb-book-title { 
+    font-weight: 700; 
+    font-size: 15px; 
+    line-height: 1.3; 
+    margin-top: 5px; 
+    color: var(--ink); /* Force color */
+}
+
+.bb-body { 
+    font-size: 13px; 
+    margin-bottom: 15px; 
+    line-height: 1.5; 
+    color: var(--ink);
+}
+
+/* Rubber Stamp Button */
+.bb-action-btn {
+    display: block;
+    text-align: center;
+    background: transparent;
+    color: var(--ink) !important; /* Force override site link colors */
+    border: 2px solid var(--ink);
+    padding: 12px;
+    text-decoration: none !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.bb-action-btn:hover {
+    color: var(--stamp-green) !important;
+    border-color: var(--stamp-green);
+    background-color: rgba(46, 125, 50, 0.05);
+    transform: rotate(-1deg) scale(1.02);
+    box-shadow: 2px 2px 0px rgba(46, 125, 50, 0.2);
+}
+
+.bb-secondary {
+    font-size: 12px;
+    padding: 8px;
+    border: 1px solid var(--ink);
+}
+
+.bb-input {
+    width: 100%;
+    padding: 8px 0;
+    margin-bottom: 15px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px dashed var(--ink);
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink);
+    box-sizing: border-box;
+}
+
+.bb-input:focus {
+    outline: none;
+    border-bottom-style: solid;
+}
+
+.bb-input::placeholder {
+    color: #888;
+    font-style: italic;
+}
+
+/* THE FLOATING FIX 
+   1. Uses !important to override Indigo's site CSS
+   2. Positions Top-Right (Top 160px) to be visible but not blocking header
+*/
+.bb-fixed { 
+    position: fixed !important; 
+    top: 160px !important;
+    right: 20px !important;
+    bottom: auto !important;
+    width: auto !important;
+    
+    /* Maximum Z-Index to stay on top of everything */
+    z-index: 2147483647 !important;
+    
+    /* Strong shadow to separate it from page content */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3), 
+                8px 8px 0px var(--ink) !important;
+    
+    /* Reset transforms to prevent inheritance issues */
+    transform: none; 
+    
+    /* Entry Animation */
+    animation: slideInRight 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes slideIn { 
+    from { transform: translateY(20px); opacity: 0; } 
+    to { transform: translateY(0); opacity: 1; } 
+}
+
+@keyframes slideInRight { 
+    from { transform: translateX(50px); opacity: 0; } 
+    to { transform: translateX(0); opacity: 1; } 
+}

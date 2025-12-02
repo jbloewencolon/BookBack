@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BookBack Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #f0e6d2; --ink: #2b2b2b; --blue: #4a6fa5; --green: #2e7d32; }
+        
+        body { 
+            font-family: 'Courier Prime', monospace; 
+            background: var(--bg); 
+            color: var(--ink); 
+            padding: 30px; 
+            width: 450px; 
+            overflow-x: hidden;
+        }
+
+        .card { 
+            background: #fff; 
+            border: 2px solid var(--ink); 
+            padding: 25px; 
+            box-shadow: 8px 8px 0 rgba(43, 43, 43, 1); 
+        }
+
+        h1 { 
+            margin: 0 0 15px 0; 
+            border-bottom: 4px double var(--ink); 
+            padding-bottom: 10px;
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+        }
+
+        p { 
+            font-size: 13px; 
+            margin-bottom: 20px; 
+            line-height: 1.5; 
+            color: #444; 
+        }
+        
+        /* Form Inputs */
+        input[type="text"] { 
+            width: 100%; 
+            padding: 10px; 
+            border: none;
+            border-bottom: 2px dashed #999;
+            background: #fafafa;
+            margin-bottom: 15px; 
+            font-family: inherit; 
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-bottom: 2px solid var(--ink);
+            background: #fff;
+        }
+
+        /* Generic Button Styles */
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            border: 2px solid var(--ink); 
+            font-family: inherit; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            background: transparent;
+            transition: all 0.1s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+        }
+        button:active {
+            transform: translateY(1px);
+            box-shadow: none;
+        }
+        
+        #detectBtn { 
+            background: var(--ink); 
+            color: var(--bg); 
+            border: 2px solid var(--ink);
+        }
+        #detectBtn:hover {
+            background: #444;
+        }
+        
+        label { 
+            font-size: 11px; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            display: block; 
+            margin-bottom: 5px; 
+            color: var(--green); 
+            letter-spacing: 1px;
+        }
+
+        /* Library List */
+        #libraryList { margin-top: 10px; border-top: 2px solid #eee; padding-top: 20px; }
+        .lib-row { display: flex; gap: 10px; margin-bottom: 10px; }
+        .lib-row input { margin-bottom: 0; font-size: 12px; border-bottom: 1px solid #ccc; background: transparent; }
+        .lib-remove { 
+            width: 40px; 
+            background: #fff; 
+            color: var(--ink); 
+            border: 1px solid var(--ink);
+            font-size: 14px;
+        }
+        .lib-remove:hover {
+            background: #d32f2f;
+            color: white;
+            border-color: #d32f2f;
+        }
+
+        .steps { 
+            background: #eee; 
+            padding: 15px; 
+            border-left: 4px solid var(--ink); 
+            margin-bottom: 20px; 
+        }
+        .steps ol { margin: 0; padding-left: 20px; font-size: 12px; line-height: 1.6; }
+
+        #status { 
+            text-align: center; 
+            margin-top: 15px; 
+            font-weight: bold; 
+            min-height: 20px; 
+            font-size: 12px; 
+            font-family: inherit;
+        }
+
+        .manual-section { 
+            margin-top: 30px; 
+            border-top: 4px double #eee; 
+            padding-top: 20px; 
+            text-align: center; 
+        }
+        #manualBtn { 
+            background: none; 
+            border: 1px dashed #999; 
+            color: #666; 
+            font-size: 11px; 
+            padding: 8px; 
+            width: auto; 
+        }
+        #manualBtn:hover { 
+            border-style: solid;
+            color: var(--ink);
+            border-color: var(--ink);
+        }
+        .manual-hint { font-size: 11px; color: var(--green); margin-top: 10px; font-weight: bold; display: none; }
+        
+        /* Support Link Styles */
+        .support-section {
+            margin-top: 25px;
+            text-align: center;
+        }
+        
+        #supportBtn {
+            /* Reset button styles to look like a link */
+            background: none;
+            border: none;
+            width: auto;
+            padding: 5px;
+            
+            /* Polished Text Style */
+            color: #777; 
+            font-size: 12px; /* Readable size */
+            text-transform: none;
+            letter-spacing: 0;
+            box-shadow: none;
+            display: inline-block;
+            transition: color 0.2s;
+        }
+        
+        #supportBtn:hover {
+            color: var(--ink); /* Darken on hover */
+            text-decoration: underline;
+            transform: none;
+            box-shadow: none;
+            background: transparent;
+        }
+
+        /* Accessibility Focus */
+        *:focus-visible {
+            outline: 3px dashed var(--ink);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>BookBack</h1>
+        <p>Reclaim the commons. Connect your local library catalog.</p>
+        
+        <div class="steps">
+            <strong>SETUP INSTRUCTIONS:</strong>
+            <ol>
+                <li>Go to your library's website.</li>
+                <li>Search for the book <strong>"Dune"</strong>.</li>
+                <li>Copy the URL of the results page.</li>
+                <li>Paste it below.</li>
+            </ol>
+        </div>
+        
+        <label>PASTE "DUNE" SEARCH URL:</label>
+        <input type="text" id="newLibraryUrl" placeholder="e.g. https://.../search?q=Dune">
+        <button id="detectBtn">Create Connection</button>
+        
+        <div id="status"></div>
+
+        <label style="color:#666; border-top:2px solid #eee; padding-top:15px; margin-top:15px;">CONNECTED LIBRARIES:</label>
+        <div id="libraryList"></div>
+
+        <div class="manual-section">
+            <button id="manualBtn">Add Manual Template</button>
+            <div class="manual-hint" id="manualHint">
+                Added! Edit the row above. Replace the search term with <strong>{{query}}</strong>.
+            </div>
+        </div>
+
+        <div class="support-section">
+            <button id="supportBtn">☕ If you like the app, please support the developer</button>
+        </div>
+    </div>
+
+    <script src="options.js"></script>
+</body>
+</html>
