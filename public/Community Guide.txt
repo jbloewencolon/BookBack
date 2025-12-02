@@ -1,0 +1,57 @@
+Contributing to BookBack
+
+BookBack is a tool for the commons, built by the commons. We rely on community submissions to make the "Auto-Detect" feature work for tricky library websites (like NYPL, Chicago Public Library, etc.).
+
+How to Add Your Library
+
+If BookBack isn't auto-detecting your library, we probably need to add it to our Known Domains Map.
+
+Option 1: The Easy Way (Open an Issue)
+
+Go to the "Issues" tab on this GitHub repository.
+
+Create a New Issue titled: Add [Library Name]
+
+Provide the following two pieces of information:
+
+Library Homepage: (e.g., https://example-library.org)
+
+Search Result URL: Perform a search for "test" on your library's catalog and paste the resulting URL here.
+
+Option 2: The Developer Way (Pull Request)
+
+If you know your way around code, you can add it directly!
+
+Open options.js.
+
+Locate the KNOWN_DOMAINS object at the top of the file.
+
+Add your library's homepage (clean domain) and the search pattern.
+
+Replace the search term with {{query}}.
+
+Example:
+
+const KNOWN_DOMAINS = {
+    'nypl.org': '[https://borrow.nypl.org/search?query=](https://borrow.nypl.org/search?query=){{query}}&searchType=everything',
+    'mylibrary.org': '[https://catalog.mylibrary.org/find?q=](https://catalog.mylibrary.org/find?q=){{query}}' // Your addition
+};
+
+
+Submit a Pull Request!
+
+Why isn't this automatic?
+
+We prioritize privacy. BookBack does not have a central server or database. It lives entirely on your device. This means we cannot "cloud update" the list; the community must curate the list together in the code itself.
+
+Pull requests are welcome. Areas where contributions are especially appreciated:
+
+Additional retailer support
+
+Robust ISBN parsing
+
+International library template presets
+
+Accessibility upgrades
+
+New UI themes
