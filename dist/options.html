@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>BookBack Settings</title>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #f0e6d2; --ink: #2b2b2b; --blue: #4a6fa5; --green: #2e7d32; }
-        
-        body { 
-            font-family: 'Courier Prime', monospace; 
+
+        body {
+            font-family: 'Courier New', monospace; 
             background: var(--bg); 
             color: var(--ink); 
             padding: 30px; 
@@ -153,37 +152,6 @@
         }
         .manual-hint { font-size: 11px; color: var(--green); margin-top: 10px; font-weight: bold; display: none; }
         
-        /* Support Link Styles */
-        .support-section {
-            margin-top: 25px;
-            text-align: center;
-        }
-        
-        #supportBtn {
-            /* Reset button styles to look like a link */
-            background: none;
-            border: none;
-            width: auto;
-            padding: 5px;
-            
-            /* Polished Text Style */
-            color: #777; 
-            font-size: 12px; /* Readable size */
-            text-transform: none;
-            letter-spacing: 0;
-            box-shadow: none;
-            display: inline-block;
-            transition: color 0.2s;
-        }
-        
-        #supportBtn:hover {
-            color: var(--ink); /* Darken on hover */
-            text-decoration: underline;
-            transform: none;
-            box-shadow: none;
-            background: transparent;
-        }
-
         /* Accessibility Focus */
         *:focus-visible {
             outline: 3px dashed var(--ink);
@@ -222,9 +190,6 @@
             </div>
         </div>
 
-        <div class="support-section">
-            <button id="supportBtn">☕ If you like the app, please support the developer</button>
-        </div>
     </div>
 
     <script src="options.js"></script>

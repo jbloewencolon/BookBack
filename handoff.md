@@ -1,6 +1,6 @@
 # BookBack — Working Handoff
 
-_Last reviewed: 2026-06-11 (code review pass, no functional changes made)_
+_Last updated: 2026-06-11 — all priority items from review pass applied_
 
 ## What this is
 

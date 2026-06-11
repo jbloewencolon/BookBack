@@ -92,7 +92,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
 
             if (url.match(/dune/i)) {
-                const template = url.replace(/dune/i, '{{query}}');
+                // Only replace 'dune' in path/query — never touch the hostname
+                const origin = new URL(url).origin;
+                const rest = url.slice(origin.length);
+                const template = origin + rest.replace(/dune/i, '{{query}}');
                 const libraries = await getStoredLibraries();
                 libraries.push({ searchUrl: template });
                 await chrome.storage.local.set({ libraries });

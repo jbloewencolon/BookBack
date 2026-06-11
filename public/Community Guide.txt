@@ -1,57 +1,72 @@
 Contributing to BookBack
 
-BookBack is a tool for the commons, built by the commons. We rely on community submissions to make the "Auto-Detect" feature work for tricky library websites (like NYPL, Chicago Public Library, etc.).
+BookBack is a tool for the commons, built by the commons.
 
-How to Add Your Library
+---
 
-If BookBack isn't auto-detecting your library, we probably need to add it to our Known Domains Map.
+HOW TO ADD YOUR LIBRARY
 
-Option 1: The Easy Way (Open an Issue)
+BookBack uses a template-based approach. Each library is stored as a URL
+template with {{query}} as a placeholder for the search term.
 
-Go to the "Issues" tab on this GitHub repository.
+Option 1: The Easy Way (via the Options Page)
 
-Create a New Issue titled: Add [Library Name]
+1. Open the BookBack options page (click the toolbar icon).
+2. Go to your library's website and search for the book "Dune".
+3. Copy the URL of the results page.
+4. Paste it into BookBack and click "Create Connection".
+   BookBack will replace "Dune" with {{query}} automatically.
+5. Done. Your library is connected.
 
-Provide the following two pieces of information:
+Option 2: Manual Template (also via the Options Page)
 
-Library Homepage: (e.g., https://example-library.org)
-
-Search Result URL: Perform a search for "test" on your library's catalog and paste the resulting URL here.
-
-Option 2: The Developer Way (Pull Request)
-
-If you know your way around code, you can add it directly!
-
-Open options.js.
-
-Locate the KNOWN_DOMAINS object at the top of the file.
-
-Add your library's homepage (clean domain) and the search pattern.
-
-Replace the search term with {{query}}.
+Click "Add Manual Template" to add a blank row. Edit the URL directly,
+replacing your search term with {{query}}.
 
 Example:
+  https://catalog.mylibrary.org/search?q={{query}}
 
-const KNOWN_DOMAINS = {
-    'nypl.org': '[https://borrow.nypl.org/search?query=](https://borrow.nypl.org/search?query=){{query}}&searchType=everything',
-    'mylibrary.org': '[https://catalog.mylibrary.org/find?q=](https://catalog.mylibrary.org/find?q=){{query}}' // Your addition
-};
+Option 3: The Developer Way (Pull Request)
 
+If your library's catalog isn't working with the auto-detect flow, open
+an issue or submit a pull request.
 
-Submit a Pull Request!
+To open an issue, go to the Issues tab on GitHub and provide:
+  - Library name and homepage (e.g. https://example-library.org)
+  - A search result URL: search for any book on the catalog and paste the URL.
 
-Why isn't this automatic?
+Pull requests are also welcome. Areas where contributions are especially
+appreciated:
+  - Additional retailer/bookseller support (new match patterns in manifest.json
+    and selector strategies in strategies.js)
+  - Bug fixes for title/author extraction on specific sites
+  - Documentation improvements
 
-We prioritize privacy. BookBack does not have a central server or database. It lives entirely on your device. This means we cannot "cloud update" the list; the community must curate the list together in the code itself.
+---
 
-Pull requests are welcome. Areas where contributions are especially appreciated:
+WHY ISN'T THIS AUTOMATIC?
 
-Additional retailer support
+BookBack has no central server or cloud database. It lives entirely on your
+device. Library templates are stored locally and never transmitted anywhere.
+This means the community curates templates together in the code — we cannot
+push silent updates.
 
-Robust ISBN parsing
+---
 
-International library template presets
+ARCHITECTURE OVERVIEW (for developers)
 
-Accessibility upgrades
+Content-script pipeline loaded in order on matched retailer pages:
 
-New UI themes
+1. strategies.js   — detects book pages, extracts title/author/ISBN
+2. ui.js           — builds and injects the widget, constructs search queries
+3. content.js      — orchestrator: SPA detection, debounced MutationObserver
+
+background.js (service worker) — receives the library list and query from the
+widget, substitutes {{query}} into each template URL, and opens tabs.
+
+options.html / options.js — the settings page and toolbar popup. Library
+templates are saved to chrome.storage.local under the key "libraries".
+
+---
+
+Pull requests are welcome. Thank you for supporting the commons.

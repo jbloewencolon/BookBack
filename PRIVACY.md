@@ -1,6 +1,6 @@
 # Privacy Policy for BookBack
 
-_Last updated: [Insert Date]_
+_Last updated: June 11, 2026_
 
 BookBack is designed with a privacy-first philosophy. The extension does not collect, transmit, or store any personal data beyond what is necessary for its core functionality. BookBack exists to help users reconnect with public libraries, not to track or profile them.
 

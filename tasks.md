@@ -5,33 +5,39 @@ until the owner confirms priority._
 
 ## Active
 
-- (none — review pass only; no functional changes made yet)
+- (none)
 
-## Next (proposed priority order)
+## Completed (this session, 2026-06-11)
 
-1. **Align font loading with the privacy policy.** Remove the remote Google
-   Fonts `@import` in `dist/styles.css` and the `fonts.googleapis.com`
-   `<link>` in `dist/options.html`; either bundle Courier Prime locally or
-   fall back to `'Courier New', monospace`. Today every visit to a supported
-   retail book page triggers a request to Google, contradicting PRIVACY.md.
-2. **Fix the Dune-template domain corruption** in `dist/options.js`:
-   `url.replace(/dune/i, '{{query}}')` replaces the first match anywhere in
-   the URL, breaking hosts that contain "dune" (e.g. Dunedin libraries).
-   Replace only in the query/path portion after the host, or use the last
-   occurrence.
-3. **Resolve the Firefox story.** Either add `"scripts": ["background.js"]`
-   alongside `service_worker` and set a real gecko ID, or remove
-   `browser_specific_settings` until Firefox support is intended.
-4. **Wire or remove `#supportBtn`** in `dist/options.html` (no handler in
-   `options.js`; clicking does nothing).
-5. **Docs cleanup:** finish the truncated README (remove
-   `:contentReference[oaicite:n]` artifacts, complete install steps), set the
-   PRIVACY.md date, and rewrite `Community Guide.txt` to match the current
-   architecture (no `KNOWN_DOMAINS` exists anymore).
-6. **Defense in depth (low urgency):** validate `lib.searchUrl` scheme in
-   `background.js` before `tabs.create` (don't trust storage), ignore
-   messages where `sender.id !== chrome.runtime.id`, and cap the number of
-   tabs opened per click (a user with many templates gets a tab bomb).
+1. **Font loading / privacy alignment** — removed `@import` from
+   `dist/styles.css` and `<link>` from `dist/options.html`. Font stack is
+   now `'Courier New', monospace`. No more outbound request to Google on book
+   page visits.
+2. **Dune-template domain corruption** — fixed in `dist/options.js`. Now
+   parses the URL, extracts `origin`, and only replaces "dune" in
+   path+query. Hostnames containing "dune" (e.g. Dunedin libraries) are safe.
+3. **Firefox `browser_specific_settings` block** — removed from both
+   `dist/manifest.json` and `public/manifest.json`. The block was broken
+   (placeholder ID, `service_worker` without `scripts`) and would have caused
+   silent breakage on any Firefox MV3 publish attempt. Add it back properly
+   when Firefox AMO publication is actually planned.
+4. **Dead `#supportBtn`** — removed from `dist/options.html` (both the
+   markup and the CSS block). No handler existed and no destination was set.
+5. **Docs cleanup** — rewrote README (complete, no artifacts), set PRIVACY.md
+   date, rewrote `Community Guide.txt` to reflect current template-based
+   architecture (the old `KNOWN_DOMAINS` instructions no longer apply).
+6. **Background hardening** — `dist/background.js`: added `sender.id` check
+   (only handle messages from own extension), scheme re-validation after
+   normalization, and a 10-library cap per click to prevent tab bombs.
+
+## Next (remaining)
+
+- **Consider bundling a woff2** if the monospace fallback feels too
+  utilitarian. A single self-hosted font file would restore the Courier Prime
+  look without any privacy trade-off.
+- **Firefox support** (if desired): add `"scripts": ["background.js"]`
+  alongside `"service_worker"` in the manifest background object, and set a
+  real AMO extension ID in `browser_specific_settings.gecko`.
 
 ## Blocked / Needs owner decision
 

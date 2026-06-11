@@ -1,5 +1,4 @@
 /* styles.css - BookBack Styles */
-@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap');
 
 :root {
     --manila: #fcf6e5;
@@ -14,7 +13,7 @@
     color: var(--ink);
     padding: 20px;
     margin-bottom: 20px;
-    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-family: 'Courier New', monospace;
     
     /* Hard Shadow */
     box-shadow: 6px 6px 0px var(--ink); 
