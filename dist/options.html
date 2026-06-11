@@ -151,7 +151,17 @@
             border-color: var(--ink);
         }
         .manual-hint { font-size: 11px; color: var(--green); margin-top: 10px; font-weight: bold; display: none; }
-        
+
+        .support-section { margin-top: 25px; text-align: center; }
+        #supportBtn {
+            color: #777;
+            font-size: 12px;
+            font-family: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        #supportBtn:hover { color: var(--ink); text-decoration: underline; }
+
         /* Accessibility Focus */
         *:focus-visible {
             outline: 3px dashed var(--ink);
@@ -188,6 +198,10 @@
             <div class="manual-hint" id="manualHint">
                 Added! Edit the row above. Replace the search term with <strong>{{query}}</strong>.
             </div>
+        </div>
+
+        <div class="support-section">
+            <a id="supportBtn" href="https://liberapay.com/al_colibri/donate" target="_blank" rel="noopener noreferrer">☕ Support the developer</a>
         </div>
 
     </div>
