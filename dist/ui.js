@@ -12,15 +12,23 @@ const UI = {
     createWidget: (bookDetails, libraries) => {
         const container = UI.el('div');
         container.id = 'bookback-widget';
-        
+        container.setAttribute('role', 'complementary');
+        container.setAttribute('aria-label', 'BookBack library search');
+
         // --- Header ---
         const header = UI.el('div', 'bb-header');
         header.appendChild(UI.el('div', 'bb-logo', 'BOOKBACK'));
-        
-        const titleText = bookDetails.title.length > 60 
-            ? bookDetails.title.substring(0, 60) + '...' 
+        const closeBtn = UI.el('button', 'bb-close', '×');
+        closeBtn.type = 'button';
+        closeBtn.title = 'Dismiss BookBack';
+        closeBtn.setAttribute('aria-label', 'Dismiss BookBack');
+        closeBtn.addEventListener('click', () => container.remove());
+        header.appendChild(closeBtn);
+
+        const titleText = bookDetails.title.length > 60
+            ? bookDetails.title.substring(0, 60) + '...'
             : bookDetails.title;
-        
+
         const titleEl = UI.el('div', 'bb-book-title', titleText);
         header.appendChild(titleEl);
         container.appendChild(header);
@@ -28,21 +36,22 @@ const UI = {
         // --- Body ---
         const body = UI.el('div', 'bb-body');
         if (libraries.length > 1) {
-            body.innerHTML = `Check <strong>${libraries.length} libraries</strong> for availability.`;
+            body.append('Check ');
+            const count = UI.el('strong', null, `${libraries.length} libraries`);
+            body.append(count, ' for availability.');
         } else {
             body.textContent = "Check your local library for availability.";
         }
         container.appendChild(body);
 
         // --- Button ---
-        const btn = UI.el('a', 'bb-action-btn', 'Borrow It');
-        btn.href = "#";
+        const btn = UI.el('button', 'bb-action-btn', libraries.length > 1 ? `Search ${libraries.length} Libraries` : 'Search My Library');
+        btn.type = 'button';
         container.appendChild(btn);
 
         // --- Logic (Last Name Search) ---
-        btn.onclick = (e) => {
-            e.preventDefault();
-            
+        btn.onclick = () => {
+
             // 1. Clean Title
             let cleanTitle = (bookDetails.title || "")
                 .split(/[:\-(\[]/)[0]        // Cut at colon, dash, or paren
@@ -54,7 +63,7 @@ const UI = {
             cleanAuthor = cleanAuthor.replace(/^by\s+/i, '');
             // Split by comma or " and " to get primary author
             cleanAuthor = cleanAuthor.split(/[&,]|(\sand\s)/)[0].trim();
-            
+
             const authorParts = cleanAuthor.split(/\s+/);
             let lastName = "";
             if (authorParts.length > 0) {
@@ -81,9 +90,17 @@ const UI = {
     createFinder: () => {
         const container = UI.el('div');
         container.id = 'bookback-widget';
+        container.setAttribute('role', 'complementary');
+        container.setAttribute('aria-label', 'BookBack library finder');
 
         const header = UI.el('div', 'bb-header');
         header.appendChild(UI.el('div', 'bb-logo', 'BOOKBACK'));
+        const closeBtn = UI.el('button', 'bb-close', '×');
+        closeBtn.type = 'button';
+        closeBtn.title = 'Dismiss BookBack';
+        closeBtn.setAttribute('aria-label', 'Dismiss BookBack');
+        closeBtn.addEventListener('click', () => container.remove());
+        header.appendChild(closeBtn);
         header.appendChild(UI.el('div', 'bb-book-title', 'Support Public Libraries'));
         container.appendChild(header);
 
@@ -93,10 +110,11 @@ const UI = {
         const input = UI.el('input', 'bb-input');
         input.type = 'text';
         input.placeholder = 'City, State or Zip';
+        input.setAttribute('aria-label', 'City, state, or postal code');
         container.appendChild(input);
 
-        const btn = UI.el('a', 'bb-action-btn bb-secondary', 'Find Library');
-        btn.href = '#';
+        const btn = UI.el('button', 'bb-action-btn bb-secondary', 'Find a Library');
+        btn.type = 'button';
         container.appendChild(btn);
 
         const doSearch = () => {
@@ -107,15 +125,15 @@ const UI = {
             }
         };
 
-        btn.onclick = (e) => { e.preventDefault(); doSearch(); };
-        input.addEventListener('keypress', (e) => { if (e.key === 'Enter') doSearch(); });
+        btn.onclick = doSearch;
+        input.addEventListener('keydown', (e) => { if (e.key === 'Enter') doSearch(); });
 
         return container;
     },
 
     inject: (widget) => {
         // 1. Force Float for Indigo
-        const forceFloat = window.location.hostname.includes('indigo') || 
+        const forceFloat = window.location.hostname.includes('indigo') ||
                            window.location.hostname.includes('chapters');
 
         if (forceFloat) {

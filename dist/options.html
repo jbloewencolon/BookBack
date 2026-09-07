@@ -2,231 +2,155 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BookBack Settings</title>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BookBack settings</title>
     <style>
-        :root { --bg: #f0e6d2; --ink: #2b2b2b; --blue: #4a6fa5; --green: #2e7d32; }
-        
-        body { 
-            font-family: 'Courier Prime', monospace; 
-            background: var(--bg); 
-            color: var(--ink); 
-            padding: 30px; 
-            width: 450px; 
-            overflow-x: hidden;
+        :root {
+            color-scheme: light;
+            --paper: #fffdf7;
+            --manila: #f5ecd8;
+            --ink: #24231f;
+            --muted: #656258;
+            --line: #d7ceb9;
+            --green: #236c3b;
+            --green-dark: #164c29;
+            --red: #a52c2c;
+            --focus: #1866bd;
+            --radius: 10px;
         }
 
-        .card { 
-            background: #fff; 
-            border: 2px solid var(--ink); 
-            padding: 25px; 
-            box-shadow: 8px 8px 0 rgba(43, 43, 43, 1); 
-        }
-
-        h1 { 
-            margin: 0 0 15px 0; 
-            border-bottom: 4px double var(--ink); 
-            padding-bottom: 10px;
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-        }
-
-        p { 
-            font-size: 13px; 
-            margin-bottom: 20px; 
-            line-height: 1.5; 
-            color: #444; 
-        }
-        
-        /* Form Inputs */
-        input[type="text"] { 
-            width: 100%; 
-            padding: 10px; 
-            border: none;
-            border-bottom: 2px dashed #999;
-            background: #fafafa;
-            margin-bottom: 15px; 
-            font-family: inherit; 
-            font-size: 14px;
-            box-sizing: border-box;
-            transition: border-color 0.2s;
-        }
-        input[type="text"]:focus {
-            outline: none;
-            border-bottom: 2px solid var(--ink);
-            background: #fff;
-        }
-
-        /* Generic Button Styles */
-        button { 
-            width: 100%; 
-            padding: 12px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            border: 2px solid var(--ink); 
-            font-family: inherit; 
-            text-transform: uppercase; 
-            letter-spacing: 1px;
-            background: transparent;
-            transition: all 0.1s;
-        }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
-        }
-        button:active {
-            transform: translateY(1px);
-            box-shadow: none;
-        }
-        
-        #detectBtn { 
-            background: var(--ink); 
-            color: var(--bg); 
-            border: 2px solid var(--ink);
-        }
-        #detectBtn:hover {
-            background: #444;
-        }
-        
-        label { 
-            font-size: 11px; 
-            font-weight: bold; 
-            text-transform: uppercase; 
-            display: block; 
-            margin-bottom: 5px; 
-            color: var(--green); 
-            letter-spacing: 1px;
-        }
-
-        /* Library List */
-        #libraryList { margin-top: 10px; border-top: 2px solid #eee; padding-top: 20px; }
-        .lib-row { display: flex; gap: 10px; margin-bottom: 10px; }
-        .lib-row input { margin-bottom: 0; font-size: 12px; border-bottom: 1px solid #ccc; background: transparent; }
-        .lib-remove { 
-            width: 40px; 
-            background: #fff; 
-            color: var(--ink); 
-            border: 1px solid var(--ink);
-            font-size: 14px;
-        }
-        .lib-remove:hover {
-            background: #d32f2f;
-            color: white;
-            border-color: #d32f2f;
-        }
-
-        .steps { 
-            background: #eee; 
-            padding: 15px; 
-            border-left: 4px solid var(--ink); 
-            margin-bottom: 20px; 
-        }
-        .steps ol { margin: 0; padding-left: 20px; font-size: 12px; line-height: 1.6; }
-
-        #status { 
-            text-align: center; 
-            margin-top: 15px; 
-            font-weight: bold; 
-            min-height: 20px; 
-            font-size: 12px; 
-            font-family: inherit;
-        }
-
-        .manual-section { 
-            margin-top: 30px; 
-            border-top: 4px double #eee; 
-            padding-top: 20px; 
-            text-align: center; 
-        }
-        #manualBtn { 
-            background: none; 
-            border: 1px dashed #999; 
-            color: #666; 
-            font-size: 11px; 
-            padding: 8px; 
-            width: auto; 
-        }
-        #manualBtn:hover { 
-            border-style: solid;
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-width: 360px;
+            background: var(--manila);
             color: var(--ink);
-            border-color: var(--ink);
+            font: 15px/1.5 ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
         }
-        .manual-hint { font-size: 11px; color: var(--green); margin-top: 10px; font-weight: bold; display: none; }
-        
-        /* Support Link Styles */
-        .support-section {
-            margin-top: 25px;
-            text-align: center;
+        main { width: min(100%, 560px); margin: 0 auto; padding: 24px; }
+        .card {
+            overflow: hidden;
+            background: var(--paper);
+            border: 1px solid var(--ink);
+            border-radius: var(--radius);
+            box-shadow: 6px 6px 0 var(--ink);
         }
-        
-        #supportBtn {
-            /* Reset button styles to look like a link */
-            background: none;
-            border: none;
-            width: auto;
-            padding: 5px;
-            
-            /* Polished Text Style */
-            color: #777; 
-            font-size: 12px; /* Readable size */
-            text-transform: none;
-            letter-spacing: 0;
-            box-shadow: none;
-            display: inline-block;
-            transition: color 0.2s;
+        .masthead { padding: 24px 24px 20px; border-bottom: 1px solid var(--line); }
+        .eyebrow, label, .section-title {
+            display: block;
+            margin: 0 0 7px;
+            color: var(--green-dark);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
         }
-        
-        #supportBtn:hover {
-            color: var(--ink); /* Darken on hover */
-            text-decoration: underline;
-            transform: none;
-            box-shadow: none;
+        h1 { margin: 0; font-size: 28px; line-height: 1.15; letter-spacing: -.04em; }
+        .lede { margin: 8px 0 0; color: var(--muted); }
+        section { padding: 22px 24px; }
+        section + section { border-top: 1px solid var(--line); }
+        h2 { margin: 0 0 5px; font-size: 17px; line-height: 1.3; }
+        .section-copy { margin: 0 0 16px; color: var(--muted); font-size: 13px; }
+        .steps { margin: 0 0 18px; padding: 14px 14px 14px 36px; background: #f7f3e9; border-left: 3px solid var(--green); font-size: 13px; }
+        .steps li + li { margin-top: 4px; }
+        .input-row { display: flex; gap: 10px; align-items: stretch; }
+        input[type="url"] {
+            min-width: 0;
+            width: 100%;
+            min-height: 44px;
+            padding: 10px 12px;
+            border: 1px solid #898578;
+            border-radius: 7px;
+            background: #fff;
+            color: var(--ink);
+            font: inherit;
+            font-size: 13px;
+        }
+        input[type="url"]:hover { border-color: var(--ink); }
+        button, .button-link {
+            min-height: 44px;
+            padding: 10px 15px;
+            border: 1px solid var(--ink);
+            border-radius: 7px;
             background: transparent;
+            color: var(--ink);
+            cursor: pointer;
+            font: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            text-decoration: none;
         }
+        button:hover, .button-link:hover { background: #eee8d9; }
+        button:active, .button-link:active { transform: translateY(1px); }
+        .primary { flex: 0 0 auto; background: var(--green-dark); border-color: var(--green-dark); color: #fff; }
+        .primary:hover { background: #0f3d20; }
+        button:disabled { cursor: wait; opacity: .65; }
+        :focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+        .status { min-height: 24px; margin: 10px 0 -4px; color: var(--muted); font-size: 13px; }
+        .status[data-tone="success"] { color: var(--green-dark); }
+        .status[data-tone="error"] { color: var(--red); }
+        .library-list { display: grid; gap: 10px; }
+        .lib-row { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+        .lib-meta { min-width: 0; }
+        .lib-name { display: block; margin-bottom: 4px; font-size: 12px; font-weight: 700; }
+        .lib-remove { width: 44px; padding: 0; color: var(--red); font-size: 18px; line-height: 1; }
+        .lib-remove:hover { background: #fff0ed; border-color: var(--red); }
+        .empty { margin: 0; padding: 15px; border: 1px dashed var(--line); border-radius: 7px; color: var(--muted); text-align: center; font-size: 13px; }
+        .section-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+        .text-button { min-height: 36px; padding: 6px 8px; border-color: transparent; color: var(--green-dark); }
+        .support { display: flex; justify-content: center; padding: 4px 24px 20px; }
+        .support .text-button { color: var(--muted); font-weight: 400; }
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
-        /* Accessibility Focus */
-        *:focus-visible {
-            outline: 3px dashed var(--ink);
-            outline-offset: 2px;
+        @media (max-width: 460px) {
+            main { padding: 14px; }
+            .masthead, section { padding: 19px; }
+            .input-row { flex-direction: column; }
+            .primary { width: 100%; }
+            .section-footer { align-items: flex-start; flex-direction: column; }
         }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1>BookBack</h1>
-        <p>Reclaim the commons. Connect your local library catalog.</p>
-        
-        <div class="steps">
-            <strong>SETUP INSTRUCTIONS:</strong>
-            <ol>
-                <li>Go to your library's website.</li>
-                <li>Search for the book <strong>"Dune"</strong>.</li>
-                <li>Copy the URL of the results page.</li>
-                <li>Paste it below.</li>
-            </ol>
+    <main>
+        <div class="card">
+            <header class="masthead">
+                <span class="eyebrow">Library setup</span>
+                <h1>BookBack</h1>
+                <p class="lede">Connect your library catalog, then borrow instead of buy.</p>
+            </header>
+
+            <section aria-labelledby="connect-heading">
+                <h2 id="connect-heading">Connect a library</h2>
+                <p class="section-copy">Create a reusable search link in four quick steps.</p>
+                <ol class="steps">
+                    <li>Open your library’s catalog.</li>
+                    <li>Search for <strong>Dune</strong>.</li>
+                    <li>Copy the results-page URL.</li>
+                    <li>Paste it below.</li>
+                </ol>
+                <label for="newLibraryUrl">Dune search-results URL</label>
+                <div class="input-row">
+                    <input type="url" id="newLibraryUrl" placeholder="https://library.org/search?q=Dune" autocomplete="url" spellcheck="false">
+                    <button type="button" class="primary" id="detectBtn">Connect library</button>
+                </div>
+                <p id="status" class="status" role="status" aria-live="polite"></p>
+            </section>
+
+            <section aria-labelledby="libraries-heading">
+                <h2 id="libraries-heading">Connected libraries</h2>
+                <p class="section-copy">BookBack opens one search tab for each library listed here. Changes save when you leave a field.</p>
+                <div id="libraryList" class="library-list" aria-live="polite"></div>
+                <div class="section-footer">
+                    <button type="button" class="text-button" id="manualBtn">Add template manually</button>
+                    <span class="section-copy" id="manualHint" hidden>Replace the sample search term with <strong>{{query}}</strong>.</span>
+                </div>
+            </section>
+
+            <p class="support">Private by design · No tracking or account required</p>
         </div>
-        
-        <label>PASTE "DUNE" SEARCH URL:</label>
-        <input type="text" id="newLibraryUrl" placeholder="e.g. https://.../search?q=Dune">
-        <button id="detectBtn">Create Connection</button>
-        
-        <div id="status"></div>
-
-        <label style="color:#666; border-top:2px solid #eee; padding-top:15px; margin-top:15px;">CONNECTED LIBRARIES:</label>
-        <div id="libraryList"></div>
-
-        <div class="manual-section">
-            <button id="manualBtn">Add Manual Template</button>
-            <div class="manual-hint" id="manualHint">
-                Added! Edit the row above. Replace the search term with <strong>{{query}}</strong>.
-            </div>
-        </div>
-
-        <div class="support-section">
-            <button id="supportBtn">☕ If you like the app, please support the developer</button>
-        </div>
-    </div>
-
+    </main>
     <script src="options.js"></script>
 </body>
 </html>
